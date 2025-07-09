@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rentals - Vida Motors CR</title>
+    <link rel="stylesheet" href="rental-styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <h1>Vida Motors CR</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/vehicles">Vehicles</a></li>
+                    <li><a href="/rental.html" class="active">Rent</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <h2>Rent Your Perfect Vehicle</h2>
+                <p>Choose from our premium selection of rental vehicles</p>
+            </div>
+        </section>
+
+        <section class="filters-section">
+            <div class="container">
+                <div class="filter-controls">
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="economy">Economy</option>
+                        <option value="suv">SUV</option>
+                        <option value="luxury">Luxury</option>
+                        <option value="compact">Compact</option>
+                    </select>
+                    <select id="priceFilter" class="filter-select">
+                        <option value="all">All Prices</option>
+                        <option value="0-50">$0 - $50/day</option>
+                        <option value="51-100">$51 - $100/day</option>
+                        <option value="101-200">$101 - $200/day</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section class="cars-grid">
+            <div class="container">
+                <div id="carsContainer" class="cars-container">
+                    <!-- Cars will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Modal -->
+        <div id="bookingModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Book Your Rental</h3>
+                <div class="modal-body">
+                    <div class="car-summary">
+                        <img id="modalCarImage" src="" alt="">
+                        <div class="car-details">
+                            <h4 id="modalCarName"></h4>
+                            <p id="modalCarPrice"></p>
+                        </div>
+                    </div>
+                    
+                    <form id="bookingForm">
+                        <div class="form-group">
+                            <label for="customerName">Full Name</label>
+                            <input type="text" id="customerName" name="customerName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerEmail">Email</label>
+                            <input type="email" id="customerEmail" name="customerEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerPhone">Phone</label>
+                            <input type="tel" id="customerPhone" name="customerPhone" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pickupDate">Pickup Date</label>
+                                <input type="text" id="pickupDate" name="pickupDate" class="date-picker" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="returnDate">Return Date</label>
+                                <input type="text" id="returnDate" name="returnDate" class="date-picker" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pickupTime">Pickup Time</label>
+                            <select id="pickupTime" name="pickupTime" required>
+                                <option value="">Select Time</option>
+                                <option value="08:00">8:00 AM</option>
+                                <option value="09:00">9:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">1:00 PM</option>
+                                <option value="14:00">2:00 PM</option>
+                                <option value="15:00">3:00 PM</option>
+                                <option value="16:00">4:00 PM</option>
+                                <option value="17:00">5:00 PM</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additionalNotes">Additional Notes (Optional)</label>
+                            <textarea id="additionalNotes" name="additionalNotes" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="total-section">
+                            <h4>Total Cost: <span id="totalCost">$0</span></h4>
+                            <p class="rental-days">For <span id="rentalDays">0</span> days</p>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Confirm Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="modal">
+            <div class="modal-content success-content">
+                <div class="success-icon">✓</div>
+                <h3>Booking Confirmed!</h3>
+                <p>Thank you for your reservation. We've sent a confirmation email with all the details.</p>
+                <button onclick="closeSuccessModal()" class="submit-btn">Close</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Vida Motors CR. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="rental-script.js"></script>
+</body>
+</html>

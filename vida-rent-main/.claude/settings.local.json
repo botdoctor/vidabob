@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:vidamotorscr.com)",
+      "Bash(grep:*)"
+    ],
+    "deny": []
+  }
+}
