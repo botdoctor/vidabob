@@ -1,0 +1,17 @@
+{
+  "name": "vida-motors-rental",
+  "version": "1.0.0",
+  "description": "Car rental system for Vida Motors CR",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve .",
+    "build": "echo 'No build process needed for static site'"
+  },
+  "keywords": ["car", "rental", "vida-motors"],
+  "author": "Vida Motors CR",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
