@@ -1,29 +1,33 @@
 import React from 'react';
 import { Shield, Eye, Heart, Zap, Smartphone, Car, MessageCircle } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const VidaMotorsBenefits: React.FC = () => {
+  const { t } = useLanguage();
+  const navigate = useNavigate();
   const benefits = [
     {
-      title: '200 POINT INSPECTION',
-      description: 'Every vehicle undergoes our comprehensive 200-point inspection for quality assurance',
+      title: t('benefits.inspection.title'),
+      description: t('benefits.inspection.desc'),
       icon: Shield,
       image: 'https://images.pexels.com/photos/3807226/pexels-photo-3807226.jpeg?auto=compress&cs=tinysrgb&w=400'
     },
     {
-      title: 'TRANSPARENT PRICING',
-      description: 'No hidden fees or surprises. Clear, upfront pricing on all our vehicles',
+      title: t('benefits.pricing.title'),
+      description: t('benefits.pricing.desc'),
       icon: Eye,
       image: 'https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&w=400'
     },
     {
-      title: 'SATISFACTION GUARANTEE',
-      description: '100% satisfaction guarantee with our quality vehicles and service',
+      title: t('benefits.satisfaction.title'),
+      description: t('benefits.satisfaction.desc'),
       icon: Heart,
       image: 'https://images.pexels.com/photos/3807277/pexels-photo-3807277.jpeg?auto=compress&cs=tinysrgb&w=400'
     },
     {
-      title: 'NO HAGGLE EXPERIENCE',
-      description: 'Fair, fixed pricing means no stressful negotiations - just honest deals',
+      title: t('benefits.noHaggle.title'),
+      description: t('benefits.noHaggle.desc'),
       icon: Zap,
       image: 'https://images.pexels.com/photos/3807344/pexels-photo-3807344.jpeg?auto=compress&cs=tinysrgb&w=400'
     }
@@ -31,23 +35,23 @@ const VidaMotorsBenefits: React.FC = () => {
 
   const processSteps = [
     {
-      title: 'Choose from the best pre-owned or new vehicles',
-      description: 'Browse our inventory of fully inspected cars online. Buy with full confidence.',
-      action: 'View All Cars >',
+      title: t('benefits.step1.title'),
+      description: t('benefits.step1.desc'),
+      action: t('benefits.step1.action'),
       icon: Car,
       image: 'https://images.pexels.com/photos/1319460/pexels-photo-1319460.jpeg?auto=compress&cs=tinysrgb&w=300'
     },
     {
-      title: 'Book a free test drive online, or through Whatsapp',
-      description: 'Make sure your dream car suits you before you purchase.',
-      action: 'Book Test Drive >',
+      title: t('benefits.step2.title'),
+      description: t('benefits.step2.desc'),
+      action: t('benefits.step2.action'),
       icon: Smartphone,
       image: 'https://images.pexels.com/photos/3807277/pexels-photo-3807277.jpeg?auto=compress&cs=tinysrgb&w=300'
     },
     {
-      title: 'Easy Whatsapp communication. Easy transaction process.',
-      description: 'Fast and easy transaction 100% satisfaction guarantee.',
-      action: 'Buy a Car >',
+      title: t('benefits.step3.title'),
+      description: t('benefits.step3.desc'),
+      action: t('benefits.step3.action'),
       icon: MessageCircle,
       image: 'https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=300'
     }
@@ -59,10 +63,10 @@ const VidaMotorsBenefits: React.FC = () => {
         {/* Benefits Section */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Vida Motors Assured® Benefits
+            {t('benefits.title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Your dream car also comes with these benefits
+            {t('benefits.subtitle')}
           </p>
         </div>
 
@@ -102,10 +106,10 @@ const VidaMotorsBenefits: React.FC = () => {
         {/* Process Section */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            How Vida Motors Works
+            {t('benefits.howItWorks')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            You won't just love our cars, you'll love the way you buy them.
+            {t('benefits.howItWorksDesc')}
           </p>
         </div>
 
@@ -146,13 +150,15 @@ const VidaMotorsBenefits: React.FC = () => {
         {/* Call to Action */}
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">Ready to Find Your Perfect Vehicle?</h3>
+            <h3 className="text-2xl font-bold mb-4">{t('benefits.cta.title')}</h3>
             <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              Experience the Vida Motors difference with our assured benefits and seamless buying process.
+              {t('benefits.cta.desc')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-yellow-500 hover:bg-yellow-400 text-blue-900 px-8 py-3 rounded-lg font-semibold transition-colors duration-200">
-                Browse Inventory
+              <button 
+                onClick={() => navigate('/inventory')}
+                className="bg-yellow-500 hover:bg-yellow-400 text-blue-900 px-8 py-3 rounded-lg font-semibold transition-colors duration-200">
+                {t('benefits.cta.browse')}
               </button>
               <a
                 href="https://wa.me/50661657093"
@@ -160,7 +166,7 @@ const VidaMotorsBenefits: React.FC = () => {
                 rel="noopener noreferrer"
                 className="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 px-8 py-3 rounded-lg font-semibold transition-colors duration-200"
               >
-                Contact Us on WhatsApp
+                {t('benefits.cta.whatsapp')}
               </a>
             </div>
           </div>

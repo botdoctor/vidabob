@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { contactInfo } from '../data/contact';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
 import { contactService } from '../lib/contactService';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Contact: React.FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,11 +22,11 @@ const Contact: React.FC = () => {
     
     try {
       const result = await contactService.submitContact(formData);
-      alert(result.message);
+      alert(t('success.sent'));
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
     } catch (error) {
       console.error('Error submitting contact form:', error);
-      alert('Failed to send message. Please try again later.');
+      alert(t('form.submitError'));
     } finally {
       setSubmitting(false);
     }
@@ -42,23 +44,22 @@ const Contact: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Get In Touch
+            {t('contact.getInTouch')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Ready to find your perfect vehicle? Contact us today and let our experienced team 
-            help you get behind the wheel of your next car.
+            {t('contact.description')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="bg-gray-50 rounded-xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">{t('contact.sendUsMessage')}</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
+                    {t('contact.fullName')} *
                   </label>
                   <input
                     type="text"
@@ -68,12 +69,12 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="Your full name"
+                    placeholder={t('contact.fullName')}
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
+                    {t('contact.emailAddress')} *
                   </label>
                   <input
                     type="email"
@@ -83,7 +84,7 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="your@email.com"
+                    placeholder={t('common.email')}
                   />
                 </div>
               </div>
@@ -91,7 +92,7 @@ const Contact: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number
+                    {t('contact.phoneNumber')}
                   </label>
                   <input
                     type="tel"
@@ -100,12 +101,12 @@ const Contact: React.FC = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="(555) 123-4567"
+                    placeholder={t('common.phone')}
                   />
                 </div>
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject *
+                    {t('contact.subject')} *
                   </label>
                   <select
                     id="subject"
@@ -115,19 +116,19 @@ const Contact: React.FC = () => {
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
                   >
-                    <option value="">Select a subject</option>
-                    <option value="vehicle-inquiry">Vehicle Inquiry</option>
-                    <option value="financing">Financing</option>
-                    <option value="rental">Rental Information</option>
-                    <option value="service">Service Appointment</option>
-                    <option value="other">Other</option>
+                    <option value="">{t('contact.selectSubject')}</option>
+                    <option value="general">{t('contact.generalInquiry')}</option>
+                    <option value="vehicle-inquiry">{t('contact.vehicleInquiry')}</option>
+                    <option value="test-drive">{t('contact.testDrive')}</option>
+                    <option value="financing">{t('contact.financing')}</option>
+                    <option value="other">{t('contact.other')}</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
+                  {t('contact.yourMessage')} *
                 </label>
                 <textarea
                   id="message"
@@ -137,7 +138,7 @@ const Contact: React.FC = () => {
                   required
                   rows={4}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                  placeholder="Tell us how we can help you..."
+                  placeholder={t('contact.messagePlaceholder')}
                 />
               </div>
 
@@ -147,7 +148,7 @@ const Contact: React.FC = () => {
                 className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 disabled:cursor-not-allowed"
               >
                 <Send className="h-5 w-5" />
-                <span>{submitting ? 'Sending...' : 'Send Message'}</span>
+                <span>{submitting ? t('contact.sending') : t('contact.sendMessage')}</span>
               </button>
             </form>
           </div>
@@ -155,12 +156,12 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">{t('contact.contactInformation')}</h3>
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <MapPin className="h-6 w-6 text-blue-600 mt-1" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Address</h4>
+                    <h4 className="font-semibold text-gray-900">{t('contact.visitUs')}</h4>
                     <p className="text-gray-600">{contactInfo.address}</p>
                   </div>
                 </div>
@@ -168,7 +169,7 @@ const Contact: React.FC = () => {
                 <div className="flex items-start space-x-4">
                   <MessageCircle className="h-6 w-6 text-blue-600 mt-1" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Phone</h4>
+                    <h4 className="font-semibold text-gray-900">{t('contact.whatsappUs')}</h4>
                     <a 
                       href="https://wa.me/50661657093" 
                       target="_blank" 
@@ -183,7 +184,7 @@ const Contact: React.FC = () => {
                 <div className="flex items-start space-x-4">
                   <Mail className="h-6 w-6 text-blue-600 mt-1" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Email</h4>
+                    <h4 className="font-semibold text-gray-900">{t('contact.emailUs')}</h4>
                     <p className="text-gray-600">{contactInfo.email}</p>
                   </div>
                 </div>
@@ -191,7 +192,7 @@ const Contact: React.FC = () => {
                 <div className="flex items-start space-x-4">
                   <Clock className="h-6 w-6 text-blue-600 mt-1" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Business Hours</h4>
+                    <h4 className="font-semibold text-gray-900">{t('contact.businessHours')}</h4>
                     <div className="text-gray-600 space-y-1">
                       <p>{contactInfo.hours.weekdays}</p>
                       <p>{contactInfo.hours.saturday}</p>
@@ -206,23 +207,23 @@ const Contact: React.FC = () => {
             <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
               <div className="text-center text-gray-500">
                 <MapPin className="h-12 w-12 mx-auto mb-2" />
-                <p>Interactive Map</p>
-                <p className="text-sm">Google Maps integration would go here</p>
+                <p>{t('contact.interactiveMap')}</p>
+                <p className="text-sm">{t('contact.mapIntegration')}</p>
               </div>
             </div>
 
             {/* Quick Actions */}
             <div className="bg-blue-50 rounded-lg p-6">
-              <h4 className="font-semibold text-gray-900 mb-4">Quick Actions</h4>
+              <h4 className="font-semibold text-gray-900 mb-4">{t('contact.quickActions')}</h4>
               <div className="space-y-3">
                 <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-200">
-                  Schedule Test Drive
+                  {t('contact.scheduleTestDrive')}
                 </button>
                 <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition-colors duration-200">
-                  Get Financing Quote
+                  {t('contact.getFinancingQuote')}
                 </button>
                 <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-colors duration-200">
-                  Book Service Appointment
+                  {t('contact.bookServiceAppointment')}
                 </button>
               </div>
             </div>

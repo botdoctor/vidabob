@@ -3,12 +3,14 @@ import { useApp } from '../contexts/AppContext';
 import { useVehicles } from '../hooks/useVehicles';
 import VehicleCardSaleOnly from '../components/VehicleCardSaleOnly';
 import { Filter, Grid, List, Search } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Inventory: React.FC = () => {
   const { vehicles: dbVehicles, loading, error } = useVehicles();
   const [filter, setFilter] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchTerm, setSearchTerm] = useState('');
+  const { t } = useLanguage();
   
   // Use database vehicles
   const vehicles = dbVehicles;
@@ -26,11 +28,11 @@ const Inventory: React.FC = () => {
   });
 
   const categories = [
-    { id: 'all', label: 'All Vehicles' },
-    { id: 'sedan', label: 'Sedans' },
-    { id: 'suv', label: 'SUVs' },
-    { id: 'truck', label: 'Trucks' },
-    { id: 'coupe', label: 'Coupes' }
+    { id: 'all', label: t('featured.allVehicles') },
+    { id: 'sedan', label: t('featured.sedans') },
+    { id: 'suv', label: t('featured.suvs') },
+    { id: 'truck', label: t('featured.trucks') },
+    { id: 'coupe', label: t('featured.coupes') }
   ];
 
   if (loading) {
@@ -39,10 +41,10 @@ const Inventory: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Vehicle Inventory
+              {t('inventory.title')}
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Loading our complete collection...
+              {t('common.loading')}
             </p>
           </div>
           <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -66,10 +68,10 @@ const Inventory: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Vehicle Inventory
+              {t('inventory.title')}
             </h1>
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded max-w-md mx-auto">
-              <p className="font-bold">Error loading vehicles</p>
+              <p className="font-bold">{t('common.error')}</p>
               <p className="text-sm">{error}</p>
             </div>
           </div>
@@ -83,10 +85,10 @@ const Inventory: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Vehicle Inventory
+            {t('inventory.title')}
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Browse our complete collection of premium vehicles available for purchase.
+            {t('featured.description')}
           </p>
         </div>
 
@@ -96,7 +98,7 @@ const Inventory: React.FC = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
-              placeholder="Search vehicles..."
+              placeholder={t('inventory.searchPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -108,7 +110,7 @@ const Inventory: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 space-y-4 md:space-y-0">
           <div className="flex items-center space-x-2">
             <Filter className="h-5 w-5 text-gray-600" />
-            <span className="text-sm font-medium text-gray-700">Filter by:</span>
+            <span className="text-sm font-medium text-gray-700">{t('featured.filterBy')}</span>
             <div className="flex flex-wrap gap-2">
               {categories.map(category => (
                 <button
@@ -127,7 +129,7 @@ const Inventory: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-medium text-gray-700">View:</span>
+            <span className="text-sm font-medium text-gray-700">{t('featured.view')}</span>
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-md transition-colors duration-200 ${
@@ -154,7 +156,7 @@ const Inventory: React.FC = () => {
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-sm text-gray-600">
-            Showing {filteredVehicles.length} of {vehicles.length} vehicles
+            {t('featured.showing')} {filteredVehicles.length} {t('featured.of')} {vehicles.length} {t('featured.vehicles')}
           </p>
         </div>
 
@@ -172,7 +174,7 @@ const Inventory: React.FC = () => {
         {filteredVehicles.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-500 text-lg">
-              No vehicles found matching your criteria.
+              {t('inventory.noResults')}
             </div>
             <button
               onClick={() => {
@@ -181,7 +183,7 @@ const Inventory: React.FC = () => {
               }}
               className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200"
             >
-              Clear Filters
+              {t('inventory.clearFilters')}
             </button>
           </div>
         )}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Vehicle } from '../types';
 import { Fuel, Gauge, Calendar, Palette, Settings, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface VehicleCardProps {
   vehicle: Vehicle;
@@ -13,6 +14,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, showRentButton = fal
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const { t } = useLanguage();
 
   // Get all images or fallback to primaryImage
   const images = vehicle.images?.length > 0 ? vehicle.images : [vehicle.primaryImage];
@@ -101,11 +103,11 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, showRentButton = fal
         {/* Badges */}
         {vehicle.isFeatures && (
           <div className="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-            Featured
+            {t('featured.badge')}
           </div>
         )}
         <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold capitalize shadow-lg">
-          {vehicle.type === 'both' ? 'Sale & Rental' : vehicle.type}
+          {vehicle.type === 'both' ? t('featured.forSale') + ' & ' + t('nav.rentals') : vehicle.type === 'sale' ? t('featured.forSale') : t('featured.forRental')}
         </div>
       </div>
 
@@ -148,7 +150,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, showRentButton = fal
 
         {/* Features */}
         <div className="mb-4">
-          <h4 className="text-sm font-semibold text-gray-900 mb-2">Key Features</h4>
+          <h4 className="text-sm font-semibold text-gray-900 mb-2">{t('vehicle.features')}</h4>
           <div className="flex flex-wrap gap-1">
             {vehicle.features.slice(0, 3).map((feature, index) => (
               <span
@@ -160,7 +162,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, showRentButton = fal
             ))}
             {vehicle.features.length > 3 && (
               <span className="text-blue-600 text-xs">
-                +{vehicle.features.length - 3} more
+                +{vehicle.features.length - 3} {t('common.more')}
               </span>
             )}
           </div>
@@ -173,14 +175,14 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, showRentButton = fal
               <div className="text-2xl font-bold text-gray-900">
                 {formatPrice(vehicle.salePrice || 0)}
               </div>
-              <div className="text-sm text-gray-600">Purchase Price</div>
+              <div className="text-sm text-gray-600">{t('common.price')}</div>
             </div>
             {vehicle.rentalPrice && (
               <div className="text-right">
                 <div className="text-xl font-bold text-blue-600">
-                  {formatPrice(vehicle.rentalPrice)}/day
+                  {formatPrice(vehicle.rentalPrice)}{t('vehicle.perDay')}
                 </div>
-                <div className="text-sm text-gray-600">Rental Rate</div>
+                <div className="text-sm text-gray-600">{t('booking.dailyRate')}</div>
               </div>
             )}
           </div>
@@ -189,21 +191,21 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, showRentButton = fal
             <button 
               onClick={() => navigate(`/vehicle/${vehicle.id}`)}
               className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold transition-colors duration-200">
-              View Details
+              {t('vehicle.viewDetails')}
             </button>
             {showRentButton && vehicle.rentalPrice && onRent ? (
               <button 
                 onClick={() => onRent(vehicle)}
                 className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-semibold transition-colors duration-200"
               >
-                Rent Now
+                {t('vehicle.rent')}
               </button>
             ) : (
               <button 
                 onClick={() => navigate('/contact')}
                 className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg font-semibold transition-colors duration-200"
               >
-                Contact Us
+                {t('hero.contactUs')}
               </button>
             )}
           </div>

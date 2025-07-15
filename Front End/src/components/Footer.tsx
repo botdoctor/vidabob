@@ -2,10 +2,12 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Youtube, Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import Logo from './Logo';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -22,8 +24,7 @@ const Footer: React.FC = () => {
               <Logo height={50} />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Your trusted partner in automotive excellence for over 20 years. 
-              We provide premium vehicles, exceptional service, and financing solutions.
+              {t('footer.description')}
             </p>
             <div className="flex space-x-4">
               <button className="bg-blue-600 hover:bg-blue-700 p-2 rounded-lg transition-colors duration-200">
@@ -43,14 +44,14 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   to="/"
                   className="text-gray-400 hover:text-white transition-colors duration-200 block"
                 >
-                  Home
+                  {t('nav.home')}
                 </Link>
               </li>
               <li>
@@ -58,7 +59,7 @@ const Footer: React.FC = () => {
                   to="/inventory"
                   className="text-gray-400 hover:text-white transition-colors duration-200 block"
                 >
-                  Vehicle Inventory
+                  {t('footer.vehicleInventory')}
                 </Link>
               </li>
               <li>
@@ -66,7 +67,7 @@ const Footer: React.FC = () => {
                   to="/sell-car"
                   className="text-gray-400 hover:text-white transition-colors duration-200 block"
                 >
-                  Sell Your Car
+                  {t('footer.sellYourCar')}
                 </Link>
               </li>
               <li>
@@ -74,7 +75,7 @@ const Footer: React.FC = () => {
                   to="/about"
                   className="text-gray-400 hover:text-white transition-colors duration-200 block"
                 >
-                  About Us
+                  {t('footer.aboutUs')}
                 </Link>
               </li>
               <li>
@@ -82,7 +83,7 @@ const Footer: React.FC = () => {
                   to="/contact"
                   className="text-gray-400 hover:text-white transition-colors duration-200 block"
                 >
-                  Contact
+                  {t('nav.contact')}
                 </Link>
               </li>
               <li>
@@ -90,7 +91,7 @@ const Footer: React.FC = () => {
                   to="/admin"
                   className="text-gray-400 hover:text-white transition-colors duration-200 block"
                 >
-                  Admin
+                  {t('nav.admin')}
                 </Link>
               </li>
               <li>
@@ -98,7 +99,7 @@ const Footer: React.FC = () => {
                   to="/reseller"
                   className="text-gray-400 hover:text-white transition-colors duration-200 block"
                 >
-                  Reseller Panel
+                  {t('nav.reseller')}
                 </Link>
               </li>
             </ul>
@@ -106,32 +107,32 @@ const Footer: React.FC = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Our Services</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.ourServices')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <span className="text-gray-400">New Car Sales</span>
+                <span className="text-gray-400">{t('footer.newCarSales')}</span>
               </li>
               <li>
-                <span className="text-gray-400">Used Car Sales</span>
+                <span className="text-gray-400">{t('footer.usedCarSales')}</span>
               </li>
               <li>
-                <span className="text-gray-400">Vehicle Rentals</span>
+                <span className="text-gray-400">{t('footer.vehicleRentals')}</span>
               </li>
               <li>
-                <span className="text-gray-400">Financing & Leasing</span>
+                <span className="text-gray-400">{t('footer.financingLeasing')}</span>
               </li>
               <li>
-                <span className="text-gray-400">Service & Maintenance</span>
+                <span className="text-gray-400">{t('footer.serviceMaintenance')}</span>
               </li>
               <li>
-                <span className="text-gray-400">Parts & Accessories</span>
+                <span className="text-gray-400">{t('footer.partsAccessories')}</span>
               </li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.contactInfo')}</h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-blue-400 mt-0.5" />
@@ -162,17 +163,17 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-sm text-gray-400">
-            © {currentYear} Viida Motors. All rights reserved.
+            © {currentYear} Viida Motors. {t('footer.allRightsReserved')}
           </div>
           <div className="flex space-x-6 text-sm text-gray-400 mt-4 md:mt-0">
             <button className="hover:text-white transition-colors duration-200">
-              Privacy Policy
+              {t('footer.privacyPolicy')}
             </button>
             <button className="hover:text-white transition-colors duration-200">
-              Terms of Service
+              {t('footer.termsOfService')}
             </button>
             <button className="hover:text-white transition-colors duration-200">
-              Cookie Policy
+              {t('footer.cookiePolicy')}
             </button>
           </div>
         </div>
