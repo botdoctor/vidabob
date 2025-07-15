@@ -1,0 +1,15 @@
+name = "vida-oauth-worker"
+main = "oauth-worker.js"
+compatibility_date = "2025-01-08"
+
+[vars]
+GOOGLE_CLIENT_ID = "your-google-client-id"
+GOOGLE_CLIENT_SECRET = "your-google-client-secret"
+OAUTH_REDIRECT_URI = "http://localhost:8787/auth/callback"
+BACKEND_API_URL = "http://localhost:5000"
+FRONTEND_APP_URL = "http://localhost:3000"
+
+# For production, update these values:
+# OAUTH_REDIRECT_URI = "https://oauth-worker.yourdomain.workers.dev/auth/callback"
+# BACKEND_API_URL = "https://vida-backend.onrender.com"
+# FRONTEND_APP_URL = "https://vida-rentals-app.pages.dev"

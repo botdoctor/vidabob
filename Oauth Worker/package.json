@@ -1,0 +1,19 @@
+{
+  "name": "vida-oauth-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for OAuth authentication",
+  "main": "oauth-worker.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler publish",
+    "test": "jest"
+  },
+  "keywords": ["oauth", "cloudflare-workers", "google-auth"],
+  "author": "Vida Motors CR",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "wrangler": "^3.0.0"
+  }
+}
